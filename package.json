@@ -10,7 +10,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:docker:db": "docker compose -f docker-compose.db.yaml up --build",
-    "start:local": "nest start --watch -e 'node --env-file ./environments/local.env'",
+    "start:local": "nest start --watch -e \"node --env-file ./environments/local.env\"",
     "start:debug": "nest start --debug --watch",
     "start:dev": "node dist/main --env-file ./environments/dev.env'",
     "start:prod": "node dist/main --env-file ./environments/prod.env'",
@@ -20,7 +20,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typeorm": "typeorm-ts-node-commonjs --dataSource ./ormconfig.ts",
+    "migration:create": "cross-var npm run typeorm -- migration:create ./src/database/migrations/$npm_config_name",
+    "migration:generate": "cross-var npm run typeorm -- migration:generate ./src/database/migrations/$npm_config_name",
+    "migration:revert": "npm run typeorm -- migration:revert",
+    "migration:run": "npm run typeorm -- migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.10",
@@ -29,11 +34,14 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.3.10",
     "@nestjs/swagger": "^7.3.1",
+    "@nestjs/typeorm": "^10.0.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "npm-check-updates": "^16.14.20",
+    "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.3.2",
@@ -45,6 +53,7 @@
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "2.29.1",

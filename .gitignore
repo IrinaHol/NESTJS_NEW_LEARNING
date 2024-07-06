@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+sept-2023-api-db
+sept-2023-api-s3-data
+
 # Logs
 logs
 *.log
@@ -35,7 +38,7 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment variable files
+# dotenv environments variable files
 .env
 .env.development.local
 .env.test.local

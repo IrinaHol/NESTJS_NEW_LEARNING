@@ -11,6 +11,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const appConfig = configService.get<AppConfig>('app');
+
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
