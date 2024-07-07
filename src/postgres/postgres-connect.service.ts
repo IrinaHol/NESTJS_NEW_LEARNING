@@ -5,18 +5,14 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
-import { AppConfig, Config, DatabaseConfig } from '../configs/configs.type';
+import { Config, DatabaseConfig } from '../configs/configs.type';
 
 @Injectable()
 export class PostgresConnectService implements TypeOrmOptionsFactory {
   constructor(private readonly configService: ConfigService<Config>) {}
-  // const configService = app.get(ConfigService);
-  // const appConfig = configService.get<AppConfig>('app');
+
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const databaseConfig = this.configService.get<DatabaseConfig>('database');
-    // console.log(this.configService);
-    console.log(process.env.POSTGRES_HOST, 'host****');
-
     return {
       type: 'postgres',
       host: databaseConfig.host,
@@ -25,11 +21,25 @@ export class PostgresConnectService implements TypeOrmOptionsFactory {
       password: databaseConfig.password,
       database: databaseConfig.dbName,
       entities: [
-        path.join(process.cwd(), 'dist', 'database', 'entities', '*.entity.js'),
+        path.join(
+          process.cwd(),
+          'dist',
+          'src',
+          'database',
+          'entities',
+          '*.entity.js',
+        ),
       ],
-      // migrations: [
-      //   path.join(process.cwd(), 'src', 'database', 'migrations', '*.ts'),
-      // ],
+      migrations: [
+        path.join(
+          process.cwd(),
+          'dist',
+          'srs',
+          'database',
+          'migrations',
+          '*.js',
+        ),
+      ],
       synchronize: false,
     };
   }
