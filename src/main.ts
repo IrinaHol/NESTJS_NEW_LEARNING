@@ -1,5 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config/dist/config.service';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -31,7 +31,6 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
-
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -47,4 +46,4 @@ async function bootstrap() {
     );
   });
 }
-bootstrap();
+void bootstrap();
