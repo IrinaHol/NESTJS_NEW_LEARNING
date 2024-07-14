@@ -36,7 +36,7 @@ export class CreateUserReqDto {
   @IsString({ message: 'Must be string' })
   @MinLength(3, { message: 'Min 3 characters' })
   @MaxLength(30, { message: 'Max 30 characters' })
-  @Transform(({ value }) => value.trim())
+  @Transform(TransformHelper.trim)
   public readonly name: string;
 
   @IsString()
@@ -64,7 +64,6 @@ export class CreateUserReqDto {
   @IsInt()
   @IsOptional()
   @IsNumber()
-  @Transform(TransformHelper.trim)
   @Min(18)
   @Max(100)
   @Type(() => Number) //пройде навіть якщо вік запишемо стрічкою... спрацьовує найперше
@@ -72,7 +71,7 @@ export class CreateUserReqDto {
 
   @IsOptional()
   @IsObject()
-  @Transform(TransformHelper.trim)
+  // @Transform(TransformHelper.trim)
   @Type(() => CarRequestDto)
   @ValidateNested() //означає що ми валідуємо обєкт
   car: CarRequestDto;
