@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 
+import { UserRepository } from '../../repository/services/user.repository';
 import { LoggerService } from '../logger/logger.service';
 import { CreateUserReqDto } from './dto/req/create-user.req.dto';
 import { UpdateUserReqDto } from './dto/req/update-user.req.dto';
 
 @Injectable()
 export class UserService {
-  // private readonly logger = new Logger(UserService.name);
-
-  constructor(private readonly logger: LoggerService) {}
+  constructor(
+    private readonly logger: LoggerService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   public async create(createUserDto: CreateUserReqDto): Promise<any> {
-    this.logger.log('This action adds a new user');
-    throw new Error('This action adds a new user');
-    return 'This action adds a new user';
+    return await this.userRepository.save({
+      email: 'irinagil@i.ua',
+      password: 'asdf1233',
+      name: 'asdf',
+    });
   }
 
   public async findAll(): Promise<any> {

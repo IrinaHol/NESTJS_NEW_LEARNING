@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { UserModule } from './modules/user/user.module';
 import { PostgresModule } from './postgres/postgres.module';
+import { RepositoryModule } from './repository/repository.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PostgresModule } from './postgres/postgres.module';
       load: [configuration],
       isGlobal: true,
     }),
+    RepositoryModule,
     LoggerModule,
     PostgresModule,
     UserModule,
